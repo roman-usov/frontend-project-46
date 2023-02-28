@@ -1,0 +1,33 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "[![Actions Status](https://github.com/roman-usov/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/roman-usov/frontend-project-46/actions)",
+  "main": "/src/gendiff-util.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roman-usov/frontend-project-46.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roman-usov/frontend-project-46/issues"
+  },
+  "homepage": "https://github.com/roman-usov/frontend-project-46#readme",
+  "devDependencies": {
+    "eslint": "^8.34.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "prettier": "^2.8.4"
+  },
+  "dependencies": {
+    "commander": "^10.0.0",
+    "lodash": "^4.17.21"
+  }
+}
