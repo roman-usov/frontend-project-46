@@ -19,13 +19,10 @@ function getFileExtension(filePath) {
 }
 
 function getRemovedElements(sourceObj, changedObj) {
-  const sourceObjEntries = Object.entries(sourceObj);
-  const changedObjKeys = Object.keys(changedObj);
-
-  return sourceObjEntries.reduce((acc, entry) => {
+  return Object.entries(sourceObj).reduce((acc, entry) => {
     const [key, value] = entry;
 
-    if (!changedObjKeys.includes(key)) {
+    if (!Object.keys(changedObj).includes(key)) {
       return [...acc, Object.fromEntries([[key, { value, status: STATUS.removed }]])];
     }
 
@@ -34,12 +31,9 @@ function getRemovedElements(sourceObj, changedObj) {
 }
 
 function getAddedElements(sourceObj, changedObj) {
-  const sourceObjKeys = Object.keys(sourceObj);
-  const changedObjEntries = Object.entries(changedObj);
-
-  return changedObjEntries.reduce((acc, entry) => {
+  return Object.entries(changedObj).reduce((acc, entry) => {
     const [key, value] = entry;
-    if (!sourceObjKeys.includes(key)) {
+    if (!Object.keys(sourceObj).includes(key)) {
       return [...acc, Object.fromEntries([[key, { value, status: STATUS.added }]])];
     }
 
@@ -49,7 +43,6 @@ function getAddedElements(sourceObj, changedObj) {
 
 function getChangedElements(sourceObj, changedObj) {
   const matchingKeys = Object.keys(sourceObj).filter((key) => sourceObj[key] && changedObj[key]);
-
   return matchingKeys.reduce((acc, key) => {
     if (sourceObj[key] !== changedObj[key]) {
       return [
