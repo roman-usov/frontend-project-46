@@ -7,7 +7,7 @@ module.exports = {
   ],
   testEnvironment: 'jest-environment-node',
   coveragePathIgnorePatterns: [
-
+    'node_modules'
   ],
   // "setupFiles": [
   //   "<rootDir>/test-setup.js"
