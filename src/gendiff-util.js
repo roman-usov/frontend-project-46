@@ -15,25 +15,28 @@ function getFileExtension(filePath) {
 function genDiffForFlatJsonObjs(originalJson, changedJson) {
   const sortedKeys = _.sortBy(Object.keys({ ...originalJson, ...changedJson }));
 
-  const result = sortedKeys.reduce((acc, key) => {
-    // no change in the entry
-    if (originalJson[key] === changedJson[key]) {
-      return `${acc}    ${key}: ${originalJson[key]}\n`;
+  let result = '';
+
+  for (let i = 0; i < sortedKeys.length; i += 1) {
+    const currentKey = sortedKeys[i];
+
+    if (originalJson[currentKey] === changedJson[currentKey]) {
+      result = `${result}    ${currentKey}: ${originalJson[currentKey]}\n`;
+      continue;
     }
 
-    // deleted entry
-    if (!changedJson[key]) {
-      return `${acc}  - ${key}: ${originalJson[key]}\n`;
+    if (!changedJson[currentKey]) {
+      result = `${result}  - ${currentKey}: ${originalJson[currentKey]}\n`;
+      continue;
     }
 
-    // added entry
-    if (!originalJson[key]) {
-      return `${acc}  + ${key}: ${changedJson[key]}\n`;
+    if (!originalJson[currentKey]) {
+      result = `${result}  + ${currentKey}: ${changedJson[currentKey]}\n`;
+      continue;
     }
 
-    // changed entry
-    return `${acc}  - ${key}: ${originalJson[key]}\n  + ${key}: ${changedJson[key]}\n`;
-  }, '');
+    result = `${result}  - ${currentKey}: ${originalJson[currentKey]}\n  + ${currentKey}: ${changedJson[currentKey]}\n`;
+  }
 
   return `\n{\n${result}}`;
 }

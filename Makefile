@@ -12,3 +12,6 @@ lint:
 
 pretty:
 	npx prettier --write .
+
+test:
+	npm test
