@@ -2,7 +2,10 @@ import path from 'path';
 import genDiff from '../gendiff-util.js';
 
 describe('main flow scenarios', () => {
-  const originalFileAbsPath = path.resolve(process.cwd(), 'src/__tests__/__fixtures__/main-flow-case/file1.json');
+  const originalFileAbsPath = path.resolve(
+    process.cwd(),
+    'src/__tests__/__fixtures__/main-flow-case/file1.json',
+  );
   const changedFileRelPath = 'src/__tests__/__fixtures__/main-flow-case/file2.json';
 
   test('it should display unchanged and changed lines', () => {
