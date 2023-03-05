@@ -1,5 +1,5 @@
-import path from 'path';
 import genDiff from '../gendiff-util.js';
+import { getAbsolutePath } from '../parsers.js';
 
 describe('main flow scenarios', () => {
   const expectedResult = `\n{
@@ -12,8 +12,7 @@ describe('main flow scenarios', () => {
 }`;
 
   test('it should display unchanged and changed lines for json', () => {
-    const originalFileAbsPath = path.resolve(
-      process.cwd(),
+    const originalFileAbsPath = getAbsolutePath(
       'src/__tests__/__fixtures__/main-flow-case/file1.json',
     );
     const changedFileRelPath = 'src/__tests__/__fixtures__/main-flow-case/file2.json';
@@ -22,8 +21,7 @@ describe('main flow scenarios', () => {
   });
 
   test('it should display unchanged and changed lines for yaml', () => {
-    const originalFileAbsPath = path.resolve(
-      process.cwd(),
+    const originalFileAbsPath = getAbsolutePath(
       'src/__tests__/__fixtures__/main-flow-case/file1.yaml',
     );
     const changedFileRelPath = 'src/__tests__/__fixtures__/main-flow-case/file2.yml';

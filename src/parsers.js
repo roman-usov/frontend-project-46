@@ -33,10 +33,13 @@ function parseYaml(fileContent) {
   return null;
 }
 
+export function getAbsolutePath(filePath) {
+  return path.resolve(filePath);
+}
+
 export default function parseFile(filePath) {
   const fileExt = getFileExtension(filePath);
-  const absFilePath = path.resolve(filePath);
-  const fileContent = fs.readFileSync(absFilePath);
+  const fileContent = fs.readFileSync(getAbsolutePath(filePath));
 
   switch (fileExt) {
     case FORMAT.json: {
