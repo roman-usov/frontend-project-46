@@ -28,4 +28,13 @@ describe('main flow scenarios', () => {
 
     expect(genDiff(originalFileAbsPath, changedFileRelPath)).toEqual(expectedResult);
   });
+
+  test('it should display unchanged and changed lines for yaml and json', () => {
+    const originalFileAbsPath = getAbsolutePath(
+      'src/__tests__/__fixtures__/main-flow-case/file1.json',
+    );
+    const changedFileRelPath = 'src/__tests__/__fixtures__/main-flow-case/file2.yml';
+
+    expect(genDiff(originalFileAbsPath, changedFileRelPath)).toEqual(expectedResult);
+  });
 });

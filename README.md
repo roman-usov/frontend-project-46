@@ -8,4 +8,4 @@
 
 #### gendiff
 
-[![asciicast](https://asciinema.org/a/ZRUlWdA5AEwQfTLfiwmyK7x6r.svg)](https://asciinema.org/a/ZRUlWdA5AEwQfTLfiwmyK7x6r)
+[![asciicast](https://asciinema.org/a/564877.svg)](https://asciinema.org/a/564877)
