@@ -6,7 +6,7 @@ const STATUS = {
   unchanged: ' ',
 };
 
-function getAddedAndRemovedElements(sourceObj, changedObj) {
+function getAddedAndRemovedEntries(sourceObj, changedObj) {
   const keys = Object.keys({ ...sourceObj, ...changedObj });
 
   return keys.reduce((acc, key) => {
@@ -28,7 +28,7 @@ function getAddedAndRemovedElements(sourceObj, changedObj) {
   }, []);
 }
 
-function getChangedElements(sourceObj, changedObj) {
+function getChangedEntries(sourceObj, changedObj) {
   const matchingKeys = Object.keys(sourceObj).filter((key) => sourceObj[key] && changedObj[key]);
   return matchingKeys.reduce((acc, key) => {
     if (sourceObj[key] !== changedObj[key]) {
@@ -57,7 +57,7 @@ function getChangedElements(sourceObj, changedObj) {
   }, []);
 }
 
-function getUnchangedElements(sourceObj, changedObj) {
+function getUnchangedEntries(sourceObj, changedObj) {
   const sourceObjKeys = Object.keys(sourceObj);
 
   return sourceObjKeys.reduce((acc, key) => {
@@ -86,10 +86,11 @@ function formatChanges(arrWithChanges) {
     return `${acc}  ${entryValue.status} ${key}: ${entryValue.value}\n`;
   }, '\n');
 }
-export default function genDiffForFlatJsonObjs(originalJson, changedJson) {
-  const deletedAndAddedEntries = getAddedAndRemovedElements(originalJson, changedJson);
-  const changedEntries = getChangedElements(originalJson, changedJson);
-  const unchangedEntries = getUnchangedElements(originalJson, changedJson);
+
+export default function genDiffForFlatObjs(originalObj, changedObj) {
+  const deletedAndAddedEntries = getAddedAndRemovedEntries(originalObj, changedObj);
+  const changedEntries = getChangedEntries(originalObj, changedObj);
+  const unchangedEntries = getUnchangedEntries(originalObj, changedObj);
   const allEntries = [...deletedAndAddedEntries, ...changedEntries, ...unchangedEntries];
   const sortedEntries = _.sortBy(allEntries, [(o) => Object.keys(o)[0]]);
 
