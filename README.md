@@ -8,4 +8,6 @@
 
 #### gendiff
 
+run gendiff -h for usage help
+
 [![asciicast](https://asciinema.org/a/564877.svg)](https://asciinema.org/a/564877)
