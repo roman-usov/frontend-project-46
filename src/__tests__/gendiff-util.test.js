@@ -11,30 +11,39 @@ describe('main flow scenarios', () => {
   + verbose: true
 }`;
 
-  test('it should display unchanged and changed lines for json', () => {
-    const originalFileAbsPath = getAbsolutePath(
-      'src/__tests__/__fixtures__/main-flow-case/file1.json',
-    );
-    const changedFileRelPath = 'src/__tests__/__fixtures__/main-flow-case/file2.json';
+  const testPathNames = {
+    json: {
+      originalFileAbsPath: getAbsolutePath('src/__tests__/__fixtures__/main-flow-case/file1.json'),
+      changedFileRelPath: 'src/__tests__/__fixtures__/main-flow-case/file2.json',
+    },
+    yaml: {
+      originalFileAbsPath: getAbsolutePath('src/__tests__/__fixtures__/main-flow-case/file1.yaml'),
+      changedFileRelPath: 'src/__tests__/__fixtures__/main-flow-case/file2.yml',
+    },
+    yamlAndJson: {
+      originalFileAbsPath: getAbsolutePath('src/__tests__/__fixtures__/main-flow-case/file1.json'),
+      changedFileRelPath: 'src/__tests__/__fixtures__/main-flow-case/file2.yml',
+    },
+  };
 
-    expect(genDiff(originalFileAbsPath, changedFileRelPath)).toEqual(expectedResult);
+  test('it should display unchanged and changed lines for json', () => {
+    expect(
+      genDiff(testPathNames.json.originalFileAbsPath, testPathNames.json.changedFileRelPath),
+    ).toEqual(expectedResult);
   });
 
   test('it should display unchanged and changed lines for yaml', () => {
-    const originalFileAbsPath = getAbsolutePath(
-      'src/__tests__/__fixtures__/main-flow-case/file1.yaml',
-    );
-    const changedFileRelPath = 'src/__tests__/__fixtures__/main-flow-case/file2.yml';
-
-    expect(genDiff(originalFileAbsPath, changedFileRelPath)).toEqual(expectedResult);
+    expect(
+      genDiff(testPathNames.yaml.originalFileAbsPath, testPathNames.yaml.changedFileRelPath),
+    ).toEqual(expectedResult);
   });
 
   test('it should display unchanged and changed lines for yaml and json', () => {
-    const originalFileAbsPath = getAbsolutePath(
-      'src/__tests__/__fixtures__/main-flow-case/file1.json',
-    );
-    const changedFileRelPath = 'src/__tests__/__fixtures__/main-flow-case/file2.yml';
-
-    expect(genDiff(originalFileAbsPath, changedFileRelPath)).toEqual(expectedResult);
+    expect(
+      genDiff(
+        testPathNames.yamlAndJson.originalFileAbsPath,
+        testPathNames.yamlAndJson.changedFileRelPath,
+      ),
+    ).toEqual(expectedResult);
   });
 });
