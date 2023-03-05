@@ -14,23 +14,11 @@ function getFileExtension(filePath) {
 }
 
 function parseJson(fileContent) {
-  try {
-    return JSON.parse(fileContent);
-  } catch (e) {
-    console.error(e);
-  }
-
-  return null;
+  return JSON.parse(fileContent);
 }
 
 function parseYaml(fileContent) {
-  try {
-    return jsYaml.load(fileContent, 'utf8');
-  } catch (e) {
-    console.error(e);
-  }
-
-  return null;
+  return jsYaml.load(fileContent, 'utf8');
 }
 
 export function getAbsolutePath(filePath) {
@@ -50,7 +38,6 @@ export default function parseFile(filePath) {
       return parseYaml(fileContent);
     }
     default: {
-      console.error('Failed to parse the file.');
       return null;
     }
   }
