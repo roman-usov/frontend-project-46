@@ -1,4 +1,4 @@
-import genDiff from '../gendiff-util.js';
+import genDiff from '../../index.js';
 import { getAbsolutePath } from '../parsers.js';
 
 describe('main flow scenarios', () => {

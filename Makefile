@@ -8,10 +8,10 @@ publish:
 	npm publish --dry-run
 
 lint:
-	npx eslint .
+	eslint .
 
 pretty:
-	npx prettier --write .
+	prettier --write .
 
 test:
 	npm test --watch

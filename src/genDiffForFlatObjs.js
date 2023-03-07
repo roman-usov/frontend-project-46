@@ -1,27 +1,20 @@
-import _ from 'lodash';
+import has from 'lodash.has';
+import sortBy from 'lodash.sortby';
 
-const STATUS = {
-  added: '+',
-  removed: '-',
-  unchanged: ' ',
-};
+const ADDED = '+';
+const REMOVED = '-';
+const UNCHANGED = ' ';
 
 function getAddedAndRemovedEntries(sourceObj, changedObj) {
   const keys = Object.keys({ ...sourceObj, ...changedObj });
 
   return keys.reduce((acc, key) => {
-    if (_.has(sourceObj, key) && !_.has(changedObj, key)) {
-      return [
-        ...acc,
-        Object.fromEntries([[key, { value: sourceObj[key], status: STATUS.removed }]]),
-      ];
+    if (has(sourceObj, key) && !has(changedObj, key)) {
+      return [...acc, Object.fromEntries([[key, { value: sourceObj[key], status: REMOVED }]])];
     }
 
-    if (!_.has(sourceObj, key) && _.has(changedObj, key)) {
-      return [
-        ...acc,
-        Object.fromEntries([[key, { value: changedObj[key], status: STATUS.added }]]),
-      ];
+    if (!has(sourceObj, key) && has(changedObj, key)) {
+      return [...acc, Object.fromEntries([[key, { value: changedObj[key], status: ADDED }]])];
     }
 
     return acc;
@@ -37,7 +30,7 @@ function getChangedEntries(sourceObj, changedObj) {
           key,
           {
             value: sourceObj[key],
-            status: STATUS.removed,
+            status: REMOVED,
           },
         ],
       ]);
@@ -46,7 +39,7 @@ function getChangedEntries(sourceObj, changedObj) {
           key,
           {
             value: changedObj[key],
-            status: STATUS.added,
+            status: ADDED,
           },
         ],
       ]);
@@ -69,7 +62,7 @@ function getUnchangedEntries(sourceObj, changedObj) {
             key,
             {
               value: sourceObj[key],
-              status: STATUS.unchanged,
+              status: UNCHANGED,
             },
           ],
         ]),
@@ -81,10 +74,12 @@ function getUnchangedEntries(sourceObj, changedObj) {
 }
 
 function formatChanges(arrWithChanges) {
-  return arrWithChanges.reduce((acc, obj) => {
+  const result = arrWithChanges.reduce((acc, obj) => {
     const [key, entryValue] = Object.entries(obj).flat();
     return `${acc}  ${entryValue.status} ${key}: ${entryValue.value}\n`;
   }, '\n');
+
+  return `\n{${result}}`;
 }
 
 export default function genDiffForFlatObjs(originalObj, changedObj) {
@@ -92,7 +87,8 @@ export default function genDiffForFlatObjs(originalObj, changedObj) {
   const changedEntries = getChangedEntries(originalObj, changedObj);
   const unchangedEntries = getUnchangedEntries(originalObj, changedObj);
   const allEntries = [...deletedAndAddedEntries, ...changedEntries, ...unchangedEntries];
-  const sortedEntries = _.sortBy(allEntries, [(o) => Object.keys(o)[0]]);
+  const sortedEntries = sortBy(allEntries, [(o) => Object.keys(o)[0]]);
+  console.log(sortedEntries);
 
-  return `\n{${formatChanges(sortedEntries)}}`;
+  return formatChanges(sortedEntries);
 }

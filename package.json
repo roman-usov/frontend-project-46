@@ -2,10 +2,10 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/roman-usov/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/roman-usov/frontend-project-46/actions)",
-  "main": "/src/gendiff-util.js",
+  "main": "/index.js",
   "type": "module",
   "scripts": {
-    "test": "npx jest"
+    "test": "jest"
   },
   "bin": {
     "gendiff": "bin/gendiff.js"
@@ -38,6 +38,7 @@
   "dependencies": {
     "commander": "^10.0.0",
     "js-yaml": "^4.1.0",
-    "lodash": "^4.17.21"
+    "lodash.has": "^4.5.2",
+    "lodash.sortby": "^4.7.0"
   }
 }
