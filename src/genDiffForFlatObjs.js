@@ -88,7 +88,6 @@ export default function genDiffForFlatObjs(originalObj, changedObj) {
   const unchangedEntries = getUnchangedEntries(originalObj, changedObj);
   const allEntries = [...deletedAndAddedEntries, ...changedEntries, ...unchangedEntries];
   const sortedEntries = sortBy(allEntries, [(o) => Object.keys(o)[0]]);
-  console.log(sortedEntries);
 
   return formatChanges(sortedEntries);
 }
