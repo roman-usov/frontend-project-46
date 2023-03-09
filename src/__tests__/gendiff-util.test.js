@@ -1,6 +1,5 @@
 import genDiff from '../../index.js';
 import { getAbsolutePath } from '../parsers.js';
-import { ParserController } from '../ParserController.js';
 
 describe('main flow scenarios', () => {
   const expectedResult = `\n{
@@ -34,22 +33,5 @@ describe('main flow scenarios', () => {
     test(`it should display unchanged and changed lines for ${name}`, () => {
       expect(genDiff(originalFileAbsPath, changedFileRelPath)).toEqual(expectedResult);
     });
-  });
-});
-
-describe('parser controller tests', () => {
-  const parserController = new ParserController();
-
-  test('it should allow creating only a single instance of the parserController', () => {
-    expect(parserController).toEqual(new ParserController());
-  });
-
-  test('it should throw an error if an unsupported parser type is provided', () => {
-    const unsupportedParser = () => '';
-    const unsupportedType = 'unsupportedType';
-
-    expect(() => {
-      parserController.addParser(unsupportedType, unsupportedParser);
-    }).toThrow('This parser type is not supported yet.');
   });
 });
