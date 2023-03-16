@@ -1,6 +1,8 @@
-import genDiffForFlatObjs from './src/genDiffForFlatObjs.js';
-import parseFile from './src/parsers.js';
+import genDiffForNestedObjs from './src/genDiffForNestedObjs.js';
+import parse from './src/parsers/parse.js';
+import format from './src/formatters/format.js';
 
-export default function genDiff(originalFilePath, changedFilePath) {
-  return genDiffForFlatObjs(parseFile(originalFilePath), parseFile(changedFilePath));
+export default function genDiff(originalFilePath, changedFilePath, type) {
+  const changes = genDiffForNestedObjs(parse(originalFilePath), parse(changedFilePath));
+  return format(changes, type);
 }

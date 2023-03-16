@@ -1,37 +1,41 @@
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import genDiff from '../../index.js';
-import { getAbsolutePath } from '../parsers.js';
 
-describe('main flow scenarios', () => {
-  const expectedResult = `\n{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
-}`;
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-  const testData = [
-    {
-      name: 'json',
-      originalFileAbsPath: getAbsolutePath('src/__tests__/__fixtures__/main-flow-case/file1.json'),
-      changedFileRelPath: 'src/__tests__/__fixtures__/main-flow-case/file2.json',
-    },
-    {
-      name: 'yaml',
-      originalFileAbsPath: getAbsolutePath('src/__tests__/__fixtures__/main-flow-case/file1.yaml'),
-      changedFileRelPath: 'src/__tests__/__fixtures__/main-flow-case/file2.yml',
-    },
-    {
-      name: 'yaml and json',
-      originalFileAbsPath: getAbsolutePath('src/__tests__/__fixtures__/main-flow-case/file1.json'),
-      changedFileRelPath: 'src/__tests__/__fixtures__/main-flow-case/file2.yml',
-    },
-  ];
+const getFixtureAbsPath = (filename) => path.join(__dirname, '__fixtures__', filename);
+const getFixtureRelPath = (filename) => path.join('src', '__tests__', '__fixtures__', filename);
 
-  testData.forEach(({ name, originalFileAbsPath, changedFileRelPath }) => {
-    test(`it should display unchanged and changed lines for ${name}`, () => {
-      expect(genDiff(originalFileAbsPath, changedFileRelPath)).toEqual(expectedResult);
+const expected = fs.readFileSync(getFixtureAbsPath('expected-result'), 'utf8').trimEnd();
+
+const cases = [
+  {
+    name: 'json',
+    originalFileAbsPath: getFixtureAbsPath('original-file.json'),
+    changedFileRelPath: getFixtureRelPath('changed-file.json'),
+  },
+  {
+    name: 'yaml',
+    originalFileAbsPath: getFixtureAbsPath('original-file.yaml'),
+    changedFileRelPath: getFixtureRelPath('changed-file.yml'),
+  },
+  {
+    name: 'yaml and json',
+    originalFileAbsPath: getFixtureAbsPath('original-file.json'),
+    changedFileRelPath: getFixtureRelPath('changed-file.yml'),
+  },
+];
+
+describe.each(cases)(
+  'when it compares two files',
+  ({ name, originalFileAbsPath, changedFileRelPath }) => {
+    test(`it should display unchanged, changed, added and deleted lines for ${name}`, () => {
+      const actual = genDiff(originalFileAbsPath, changedFileRelPath);
+
+      expect(actual).toEqual(expected);
     });
-  });
-});
+  },
+);
