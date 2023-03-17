@@ -16,6 +16,7 @@ const cases = [
     name: 'json',
     originalFileAbsPath: getFixtureAbsPath('original-file.json'),
     changedFileRelPath: getFixtureRelPath('changed-file.json'),
+    formatType: 'stylish',
   },
   {
     name: 'yaml',
@@ -31,9 +32,9 @@ const cases = [
 
 describe.each(cases)(
   'when it compares two files',
-  ({ name, originalFileAbsPath, changedFileRelPath }) => {
+  ({ name, originalFileAbsPath, changedFileRelPath, formatType }) => {
     test(`it should display unchanged, changed, added and deleted lines for ${name}`, () => {
-      const actual = genDiff(originalFileAbsPath, changedFileRelPath);
+      const actual = genDiff(originalFileAbsPath, changedFileRelPath, formatType);
 
       expect(actual).toEqual(expected);
     });
