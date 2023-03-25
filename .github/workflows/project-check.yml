@@ -26,9 +26,8 @@ jobs:
         with:
           node-version: 14.x
           cache: 'npm'
-      - run: make install
-      - run: make lint
-      - run: make test
+      - run: npm ci
+      - run: npm test
       - name: Test & publish code coverage
         # Publish code coverage on Code Climate
         # https://github.com/paambaati/codeclimate-action

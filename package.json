@@ -5,7 +5,9 @@
   "main": "/index.js",
   "type": "module",
   "scripts": {
-    "test": "jest"
+    "test:lint": "eslint .",
+    "test:unit": "jest",
+    "test": "test:lint && test:unit"
   },
   "bin": {
     "gendiff": "bin/gendiff.js"
