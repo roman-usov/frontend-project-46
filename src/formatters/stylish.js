@@ -2,6 +2,10 @@ import { INDENT_CHAR, SPACES_PER_INDENT, SPACES_FOR_CHANGE_INFO } from '../const
 import { stringify } from '../utils.js';
 import formatterController from './formatterController.js';
 
+function createObjPropertyString(key, space, val) {
+  return `${key}:${space}${val}`;
+}
+
 function stylish(data) {
   function iterate(val) {
     return val.reduce((acc, element) => {
@@ -12,15 +16,27 @@ function stylish(data) {
       );
       const indentAfter = INDENT_CHAR.repeat(SPACES_PER_INDENT * details.depth);
 
+      const keyString = `${acc}${indentBefore}${details.status}${key}`;
+
+      const spaceAfterColon = details.value === '' ? '' : ' ';
+
+      let valueString;
+
       if (details.children) {
-        return `${acc}${indentBefore}${details.status}${key}: {\n${iterate(
-          details.children,
-        )}${indentAfter}}\n`;
+        const childrenString = iterate(details.children);
+        valueString = `{\n${childrenString}${indentAfter}}\n`;
+
+        return createObjPropertyString(keyString, spaceAfterColon, valueString);
       }
 
-      return `${acc}${indentBefore}${details.status}${key}:${
-        details.value === '' ? '' : ' '
-      }${stringify(details.value, INDENT_CHAR, SPACES_PER_INDENT, details.depth + 1)}\n`;
+      valueString = `${stringify(
+        details.value,
+        INDENT_CHAR,
+        SPACES_PER_INDENT,
+        details.depth + 1,
+      )}\n`;
+
+      return createObjPropertyString(keyString, spaceAfterColon, valueString);
     }, '');
   }
 
