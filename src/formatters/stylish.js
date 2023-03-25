@@ -10,16 +10,12 @@ function stylish(data) {
   function iterate(val) {
     return val.reduce((acc, element) => {
       const [key, details] = Object.entries(element).flat();
-
       const indentBefore = INDENT_CHAR.repeat(
         SPACES_PER_INDENT * details.depth - SPACES_FOR_CHANGE_INFO,
       );
       const indentAfter = INDENT_CHAR.repeat(SPACES_PER_INDENT * details.depth);
-
       const keyString = `${acc}${indentBefore}${details.status}${key}`;
-
       const spaceAfterColon = details.value === '' ? '' : ' ';
-
       let valueString;
 
       if (details.children) {
@@ -39,7 +35,6 @@ function stylish(data) {
       return createObjPropertyString(keyString, spaceAfterColon, valueString);
     }, '');
   }
-
   const lines = iterate(data);
 
   return `\n{\n${lines}}`;
