@@ -19,6 +19,7 @@ function produceUpdatedStr(path, oldVal, newVal) {
     oldVal,
   )} to ${produceOutputValue(newVal)}`;
 }
+
 function produceRemovedStr(path) {
   return `Property '${path}' was removed`;
 }
