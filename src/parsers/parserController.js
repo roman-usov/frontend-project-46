@@ -5,11 +5,15 @@ const parserController = {
     if (this.allowedParsers.includes(type) && typeof parser === 'function') {
       this.parsers[type] = parser;
     } else {
-      throw new Error('The provided parser type is not supported yet.');
+      console.error('The provided parser type is not supported yet.');
     }
   },
+  // eslint-disable-next-line consistent-return
   getParser(type) {
-    return this.parsers[type];
+    if (this.allowedParsers.includes(type)) {
+      return this.parsers[type];
+    }
+    console.error(`Can't parse the file of ${type} type.`);
   },
 };
 

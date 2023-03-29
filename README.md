@@ -10,4 +10,4 @@
 
 run gendiff -h for usage help
 
-[![asciicast](https://asciinema.org/a/Pq6wjrouEG1Fz69Ej9Xpp63Aq.svg)](https://asciinema.org/a/Pq6wjrouEG1Fz69Ej9Xpp63Aq)
+[![asciicast](https://asciinema.org/a/y9hJk90NoqPrSy2dTYrAFxU3y.svg)](https://asciinema.org/a/y9hJk90NoqPrSy2dTYrAFxU3y)

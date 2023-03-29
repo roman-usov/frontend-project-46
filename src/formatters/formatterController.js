@@ -1,15 +1,19 @@
 const formatterController = {
   formatters: {},
-  allowedFormatters: ['stylish'],
+  allowedFormatters: ['stylish', 'plain'],
   addFormatter(type, formatter) {
     if (this.allowedFormatters.includes(type) && typeof formatter === 'function') {
       this.formatters[type] = formatter;
     } else {
-      throw new Error('The provided formatter type is not supported yet.');
+      console.error('The provided formatter type is not supported yet.');
     }
   },
+  // eslint-disable-next-line consistent-return
   getFormatter(type) {
-    return this.formatters[type];
+    if (this.allowedFormatters.includes(type)) {
+      return this.formatters[type];
+    }
+    console.error(`Can't format the output using the formatter of ${type} type.`);
   },
 };
 
