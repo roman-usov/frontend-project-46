@@ -70,7 +70,7 @@ function stringIterator(dataToIterate) {
 function plain(data) {
   const lines = stringIterator(data);
 
-  return `\n${lines}`.trimEnd();
+  return `${lines}`.trimEnd();
 }
 
 formatterController.addFormatter('plain', plain);

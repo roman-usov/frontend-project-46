@@ -61,7 +61,7 @@ function iterateObjs(objArr) {
 }
 
 export default function json(changesArr) {
-  return `\n${JSON.stringify(iterateObjs(changesArr), null, 2)}`;
+  return `${JSON.stringify(iterateObjs(changesArr), null, 2)}`;
 }
 
 formatterController.addFormatter('json', json);

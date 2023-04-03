@@ -38,7 +38,7 @@ function stringIterator(val) {
 function stylish(data) {
   const lines = stringIterator(data);
 
-  return `\n{\n${lines}}`.trimEnd();
+  return `{\n${lines}}`.trimEnd();
 }
 
 formatterController.addFormatter('stylish', stylish);
