@@ -7,55 +7,63 @@ const statuses = new Map([
   ['- ', 'removed'],
 ]);
 
-function createChangesObject(status, ...value) {
+function createChangesObject(key, status, value) {
   return {
-    status: status === 'updated' ? 'updated' : statuses.get(status),
-    value: status === 'updated' ? { removed: value[0], added: value[1] } : value[0],
+    [key]: {
+      status: status === 'updated' ? 'updated' : statuses.get(status),
+      value: status === 'updated' ? { removed: value[0], added: value[1] } : value,
+    },
   };
 }
 
 function iterateObjs(objArr) {
-  let canSkipNextObj;
-
   return objArr.reduce((acc, obj, i) => {
     const [key, details] = Object.entries(obj).flat();
 
     if (details.children) {
-      acc[key] = { ...iterateObjs(details.children) };
+      const children = iterateObjs(details.children);
 
-      return acc;
+      return {
+        ...acc,
+        [key]: children,
+      };
     }
 
     if (details.status === UNCHANGED) {
-      acc[key] = createChangesObject(UNCHANGED, details.value);
-
-      return acc;
+      return {
+        ...acc,
+        ...createChangesObject(key, UNCHANGED, details.value),
+      };
     }
 
     if (details.status === REMOVED) {
       const nextObj = objArr[i + 1];
 
       if (has(nextObj, key)) {
-        canSkipNextObj = true;
-
-        acc[key] = createChangesObject('updated', ...[details.value, nextObj[key].value]);
-
-        return acc;
+        return {
+          ...acc,
+          ...createChangesObject(key, 'updated', [details.value, nextObj[key].value]),
+        };
       }
 
-      acc[key] = createChangesObject(REMOVED, details.value);
-
-      return acc;
+      return {
+        ...acc,
+        ...createChangesObject(key, REMOVED, details.value),
+      };
     }
 
-    if (canSkipNextObj) {
-      canSkipNextObj = false;
-      return acc;
+    const prevObj = objArr[i - 1];
+
+    if (has(prevObj, key)) {
+      return {
+        ...acc,
+      };
     }
 
-    acc[key] = createChangesObject(ADDED, details.value);
-
-    return acc;
+    return {
+      ...acc,
+      ...createChangesObject(key, ADDED, details.value),
+    };
   }, {});
 }
 
