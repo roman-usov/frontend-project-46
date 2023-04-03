@@ -39,5 +39,3 @@ export default function stylish(changesArr) {
 
   return `{\n${lines}}`.trimEnd();
 }
-
-// formatterController.addFormatter('stylish', stylish);

@@ -71,5 +71,3 @@ export default function plain(changesArr) {
 
   return `${lines}`.trimEnd();
 }
-
-// formatterController.addFormatter('plain', plain);
