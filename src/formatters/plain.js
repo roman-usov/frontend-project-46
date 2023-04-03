@@ -29,8 +29,6 @@ function stringIterator(dataToIterate) {
     // eslint-disable-next-line no-unused-vars
     .filter(([_, value]) => value.children || value.status !== UNCHANGED);
 
-  let canSkipKey;
-
   return changedKeysAndValues.reduce((acc, [key, details], i) => {
     if (details.children) {
       const childrenStr = stringIterator(details.children);
@@ -49,16 +47,16 @@ function stringIterator(dataToIterate) {
         const nextKeyHasComplexValue = isObject(nextDetails.value);
         const nextValue = nextKeyHasComplexValue ? COMPLEX_VALUE : nextDetails.value;
 
-        canSkipKey = true;
-
         return `${acc}${produceUpdatedStr(details.path, currValue, nextValue)}\n`;
       }
 
       return `${acc}${produceRemovedStr(details.path)}\n`;
     }
 
-    if (canSkipKey) {
-      canSkipKey = false;
+    const [prevKey] = changedKeysAndValues[i - 1] || [];
+    const isUpdateCase = key === prevKey;
+
+    if (isUpdateCase) {
       return `${acc}`;
     }
 
