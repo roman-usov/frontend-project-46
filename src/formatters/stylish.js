@@ -14,16 +14,15 @@ function stringIterator(val) {
     const indentAfter = INDENT_CHAR.repeat(SPACES_PER_INDENT * details.depth);
     const keyString = `${acc}${indentBefore}${details.status}${key}`;
     const spaceAfterColon = ' '; // details.value === '' ? '' : ' ';
-    let valueString;
 
     if (details.children) {
       const childrenString = stringIterator(details.children);
-      valueString = `{\n${childrenString}${indentAfter}}\n`;
+      const valueString = `{\n${childrenString}${indentAfter}}\n`;
 
       return createObjPropertyString(keyString, spaceAfterColon, valueString);
     }
 
-    valueString = `${stringify(
+    const valueString = `${stringify(
       details.value,
       INDENT_CHAR,
       SPACES_PER_INDENT,
