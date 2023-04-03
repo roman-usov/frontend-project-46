@@ -1,6 +1,7 @@
 import formatterController from './formatterController.js';
 import './stylish.js';
 import './plain.js';
+import './json.js';
 
 // eslint-disable-next-line consistent-return
 export default function format(changes, type = 'stylish') {

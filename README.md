@@ -10,4 +10,16 @@
 
 run gendiff -h for usage help
 
-[![asciicast](https://asciinema.org/a/y9hJk90NoqPrSy2dTYrAFxU3y.svg)](https://asciinema.org/a/y9hJk90NoqPrSy2dTYrAFxU3y)
+#### examples
+
+##### generate diff for two json files using the stylish formatter
+[![asciicast](https://asciinema.org/a/tJnNkqxrNjHeGstoZrg9e45Bo.svg)](https://asciinema.org/a/tJnNkqxrNjHeGstoZrg9e45Bo)
+
+##### generate diff for two yaml/yml files using the stylish formatter as default
+[![asciicast](https://asciinema.org/a/PjNyKeKhiCuzTXLxRSHK3ZqQA.svg)](https://asciinema.org/a/PjNyKeKhiCuzTXLxRSHK3ZqQA)
+
+##### generate diff for two json/yml files using the stylish formatter as default
+[![asciicast](https://asciinema.org/a/YW6I6vHs7pKCaHOfyAkhSTL6k.svg)](https://asciinema.org/a/YW6I6vHs7pKCaHOfyAkhSTL6k)
+
+##### generate diff for two files using the plain formatter
+[![asciicast](https://asciinema.org/a/px03bFv86mxJJNNfKHrjYbp6X.svg)](https://asciinema.org/a/px03bFv86mxJJNNfKHrjYbp6X)

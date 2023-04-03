@@ -1,6 +1,6 @@
 const formatterController = {
   formatters: {},
-  allowedFormatters: ['stylish', 'plain'],
+  allowedFormatters: ['stylish', 'plain', 'json'],
   addFormatter(type, formatter) {
     if (this.allowedFormatters.includes(type) && typeof formatter === 'function') {
       this.formatters[type] = formatter;

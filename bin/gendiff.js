@@ -12,7 +12,7 @@ program
   .name(`${pkg.name}`)
   .description('Compares two configuration files and shows a difference.')
   .version(`${pkg.version}`)
-  .option('-f, --format <type>', 'Options: stylish, plain.', 'stylish')
+  .option('-f, --format <type>', 'Options: stylish, plain, json.', 'stylish')
   .argument('<filepath1>', 'path to file 1')
   .argument('<filepath2>', 'path to file 2')
   .action((filepath1, filepath2, options) => {

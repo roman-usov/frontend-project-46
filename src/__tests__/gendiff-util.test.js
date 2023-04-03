@@ -37,6 +37,13 @@ const cases = [
     formatType: 'plain',
     expected: fs.readFileSync(getFixtureAbsPath('expected-result-plain'), 'utf8').trimEnd(),
   },
+  {
+    name: 'json',
+    originalFileAbsPath: getFixtureAbsPath('original-file.json'),
+    changedFileRelPath: getFixtureRelPath('changed-file.json'),
+    formatType: 'json',
+    expected: fs.readFileSync(getFixtureAbsPath('expected-result-json'), 'utf-8').trimEnd(),
+  },
 ];
 
 describe.each(cases)(
@@ -49,3 +56,18 @@ describe.each(cases)(
     });
   },
 );
+
+describe('when the expected diff should be in the json format', () => {
+  test('it should return the diff as a valid json', () => {
+    const originalFileAbsPath = getFixtureAbsPath('original-file.json');
+    const changedFileRelPath = getFixtureRelPath('changed-file.json');
+    const formatType = 'json';
+
+    const actual = genDiff(originalFileAbsPath, changedFileRelPath, formatType);
+    const parseJson = () => {
+      JSON.parse(actual);
+    };
+
+    expect(parseJson).not.toThrow();
+  });
+});
