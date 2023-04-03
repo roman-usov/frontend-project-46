@@ -1,5 +1,4 @@
 import has from 'lodash.has';
-import formatterController from './formatterController.js';
 import { ADDED, REMOVED, UNCHANGED } from '../constants.js';
 
 const statuses = new Map([
@@ -64,4 +63,4 @@ export default function json(changesArr) {
   return `${JSON.stringify(iterateObjs(changesArr), null, 2)}`;
 }
 
-formatterController.addFormatter('json', json);
+// formatterController.addFormatter('json', json);

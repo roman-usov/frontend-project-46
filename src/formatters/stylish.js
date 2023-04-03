@@ -1,6 +1,5 @@
 import { INDENT_CHAR, SPACES_PER_INDENT, SPACES_FOR_CHANGE_INFO } from '../constants.js';
 import { stringify } from '../utils.js';
-import formatterController from './formatterController.js';
 
 function createObjPropertyString(key, space, val) {
   return `${key}:${space}${val}`;
@@ -35,10 +34,10 @@ function stringIterator(val) {
   }, '');
 }
 
-function stylish(data) {
-  const lines = stringIterator(data);
+export default function stylish(changesArr) {
+  const lines = stringIterator(changesArr);
 
   return `{\n${lines}}`.trimEnd();
 }
 
-formatterController.addFormatter('stylish', stylish);
+// formatterController.addFormatter('stylish', stylish);

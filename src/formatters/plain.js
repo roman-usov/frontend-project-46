@@ -1,6 +1,5 @@
 import isObject from 'lodash.isobject';
 import { REMOVED, UNCHANGED, COMPLEX_VALUE } from '../constants.js';
-import formatterController from './formatterController.js';
 
 function produceOutputValue(value) {
   if (typeof value === 'string' && value !== COMPLEX_VALUE) {
@@ -67,10 +66,10 @@ function stringIterator(dataToIterate) {
   }, '');
 }
 
-function plain(data) {
-  const lines = stringIterator(data);
+export default function plain(changesArr) {
+  const lines = stringIterator(changesArr);
 
   return `${lines}`.trimEnd();
 }
 
-formatterController.addFormatter('plain', plain);
+// formatterController.addFormatter('plain', plain);
