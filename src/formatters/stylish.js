@@ -14,7 +14,7 @@ function stringIterator(val) {
     );
     const indentAfter = INDENT_CHAR.repeat(SPACES_PER_INDENT * details.depth);
     const keyString = `${acc}${indentBefore}${details.status}${key}`;
-    const spaceAfterColon = details.value === '' ? '' : ' ';
+    const spaceAfterColon = ' '; // details.value === '' ? '' : ' ';
     let valueString;
 
     if (details.children) {
