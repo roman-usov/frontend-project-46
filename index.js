@@ -8,6 +8,6 @@ export default function genDiff(originalFilePath, changedFilePath, formatType) {
     const changes = genDiffForNestedObjs(parse(originalFilePath), parse(changedFilePath));
     return format(changes, formatType);
   } catch (e) {
-    console.error(`Failed to generate the diff.`);
+    console.error('Failed to generate the diff.');
   }
 }

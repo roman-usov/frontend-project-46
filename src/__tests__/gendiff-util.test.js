@@ -48,6 +48,7 @@ const cases = [
 
 describe.each(cases)(
   'when it compares two files',
+  // eslint-disable-next-line object-curly-newline
   ({ name, originalFileAbsPath, changedFileRelPath, formatType, expected }) => {
     test(`it should display unchanged, changed, added and deleted lines for ${name} and for ${formatType} formatter`, () => {
       const actual = genDiff(originalFileAbsPath, changedFileRelPath, formatType);
