@@ -43,7 +43,7 @@ function stringIterator(dataToIterate) {
     const currValue = currKeyHasComplexValue ? COMPLEX_VALUE : details.value;
 
     if (details.status === REMOVED) {
-      const [nextKey, nextDetails] = changedKeysAndValues[i + 1];
+      const [nextKey, nextDetails] = changedKeysAndValues[i + 1] || [];
       const isUpdateCase = key === nextKey;
 
       if (isUpdateCase) {
