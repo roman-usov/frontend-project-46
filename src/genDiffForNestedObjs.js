@@ -27,28 +27,26 @@ function diffObjIterator(origObj, chObj, depth = 1, path = '') {
 
     if (isObject(originalValue) && isObject(changedValue)) {
       const children = diffObjIterator(originalValue, changedValue, depth + 1, updatedPath);
-      acc.push(createDiffObj(key, UNCHANGED, depth, updatedPath, { children }));
-      return acc;
+      return [...acc, createDiffObj(key, UNCHANGED, depth, updatedPath, { children })];
     }
 
     if (isEqual(originalValue, changedValue)) {
-      acc.push(createDiffObj(key, UNCHANGED, depth, updatedPath, { value: originalValue }));
-      return acc;
+      return [...acc, createDiffObj(key, UNCHANGED, depth, updatedPath, { value: originalValue })];
     }
 
     if (has(origObj, key) && !has(chObj, key)) {
-      acc.push(createDiffObj(key, REMOVED, depth, updatedPath, { value: originalValue }));
-      return acc;
+      return [...acc, createDiffObj(key, REMOVED, depth, updatedPath, { value: originalValue })];
     }
 
     if (!has(origObj, key) && has(chObj, key)) {
-      acc.push(createDiffObj(key, ADDED, depth, updatedPath, { value: changedValue }));
-      return acc;
+      return [...acc, createDiffObj(key, ADDED, depth, updatedPath, { value: changedValue })];
     }
 
-    acc.push(createDiffObj(key, REMOVED, depth, updatedPath, { value: originalValue }));
-    acc.push(createDiffObj(key, ADDED, depth, updatedPath, { value: changedValue }));
-    return acc;
+    return [
+      ...acc,
+      createDiffObj(key, REMOVED, depth, updatedPath, { value: originalValue }),
+      createDiffObj(key, ADDED, depth, updatedPath, { value: changedValue }),
+    ];
   }, []);
 }
 
